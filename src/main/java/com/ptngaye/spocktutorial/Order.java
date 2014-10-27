@@ -5,20 +5,13 @@ public class Order {
     private final float amount;
     private final String reference;
     private final String customerReference;
-    private boolean paid;
+    private OrderStatus status;
 
     public Order(float amount, String reference, String customerReference) {
         this.amount = amount;
         this.reference = reference;
         this.customerReference = customerReference;
-    }
-
-    public boolean isPaid() {
-        return paid;
-    }
-
-    public void setPaid(boolean paid) {
-        this.paid = paid;
+        this.status = OrderStatus.CREATED;
     }
 
     public float getAmount() {
@@ -31,5 +24,18 @@ public class Order {
 
     public String getCustomerReference() {
         return customerReference;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public Order save() {
+        //Persister la donnee
+        return this;
     }
 }

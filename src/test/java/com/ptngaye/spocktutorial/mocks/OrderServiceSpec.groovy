@@ -1,33 +1,54 @@
 package com.ptngaye.spocktutorial.mocks
 
+import com.ptngaye.spocktutorial.Order
+import com.ptngaye.spocktutorial.OrderService
 import com.ptngaye.spocktutorial.PaymentCard
 import com.ptngaye.spocktutorial.PaymentService
+import com.ptngaye.spocktutorial.PaymentResult
 import spock.lang.Specification
 
 import java.time.LocalDate
 
+
 class OrderServiceSpec extends Specification {
 
-    def 'easter day in 2014 is 20 aprilhh '() {
+    def 'should sa day in 2014 is 20 aprilhh '() {
         given:
-        PaymentCard paymentCard = new PaymentCard(
-                cvv: '700',
-                numCard: '1111222233334444',
-                nameOnCard: 'Paterne Gaye',
-                yearEndValidation: 2014,
-                montEndValidation: 12
-        )
-        Pa
-        String internalReference= 'ffff'
+        PaymentCard paymentCard = buildPaymentCard()
+        String internalReference= 'azerty-17'
         float amount = 25f
-        def paymentService = Mock(PaymentService)
-        _ * paymentService.makePayment(paymentCard,internalReference,amount) >>
+        PaymentResult paymentResultExpected = PAYMENT_RESULT_SUCCESS
+
+        PaymentService paymentService = Mock(){
+            _ * makePayment(paymentCard,internalReference,amount) >> paymentResultExpected
+        }
+
+        OrderService orderService = new OrderService()
+        orderService.paymentService = paymentService
+
+
         when:
-        LocalDate easterDayActual = holidaysHelper.identifyEasterDay(year)
+        Order orderActual = orderService.validateOrder(paymentCard, order)
 
         then:
-        1 * component1.receive("hello")
+        orderActual.reference==
+                orderActual.customerReference==
+                orderActual.amount==
+                orderActual.status==
     }
+
+    PaymentCard buildPaymentCard(){
+        new PaymentCard(
+                type:'MASTER_CARD',
+                number: '1111222233334444',
+                expMonth: '12',
+                expYear: '2014',
+                cvv: '700'
+        )
+    }
+    PaymentResult PAYMENT_RESULT_SUCCESS = new PaymentResult(failed:false)
+    PaymentResult PAYMENT_RESULT_FAILED = new PaymentResult(failed:true)
+
 }
 
 //1 * subscriber.receive("hello")      // exactly one call

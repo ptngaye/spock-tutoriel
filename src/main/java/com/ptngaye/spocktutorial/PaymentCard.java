@@ -2,49 +2,37 @@ package com.ptngaye.spocktutorial;
 
 
 public class PaymentCard {
-    private String cvv;
-    private String numCard;
-    private String nameOnCard;
-    private int yearEndValidation;
-    private int montEndValidation;
+    private final String type;
+    private final String number;
+    private final String expMonth;
+    private final String expYear;
+    private final String cvv;
 
-    public String getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(String cvv) {
+    public PaymentCard(String type, String number, String expMonth, String expYear, String cvv) {
+        this.type = type;
+        this.number = number;
+        this.expMonth = expMonth;
+        this.expYear = expYear;
         this.cvv = cvv;
     }
 
-    public String getNumCard() {
-        return numCard;
+    public String getType() {
+        return type;
     }
 
-    public void setNumCard(String numCard) {
-        this.numCard = numCard;
+    public String getNumber() {
+        return number;
     }
 
-    public String getNameOnCard() {
-        return nameOnCard;
+    public String getExpMonth() {
+        return expMonth;
     }
 
-    public void setNameOnCard(String nameOnCard) {
-        this.nameOnCard = nameOnCard;
+    public String getExpYear() {
+        return expYear;
     }
 
-    public int getYearEndValidation() {
-        return yearEndValidation;
-    }
-
-    public void setYearEndValidation(int yearEndValidation) {
-        this.yearEndValidation = yearEndValidation;
-    }
-
-    public int getMontEndValidation() {
-        return montEndValidation;
-    }
-
-    public void setMontEndValidation(int montEndValidation) {
-        this.montEndValidation = montEndValidation;
+    public String getCvv() {
+        return cvv;
     }
 }
