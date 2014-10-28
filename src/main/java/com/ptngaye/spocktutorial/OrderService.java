@@ -16,11 +16,13 @@ class OrderService {
         }
 
         //Si le paiement réussit, on met à jour la ccommande
-        return updateOrderWhenPaymentIsdone(order);
+        return updateOrderWhenPaymentIsdone(order, transactionResult);
     }
 
-    private Order updateOrderWhenPaymentIsdone(Order order) {
+    //On met à jour la commande avec la référence de paiement.  et un nouveau statut
+    private Order updateOrderWhenPaymentIsdone(Order order, PaymentResult transactionResult ) {
         order.setStatus(OrderStatus.PAID);
+        order.setPaymentTransactionId(transactionResult.getTransactionId());
         return order.save();
     }
 
